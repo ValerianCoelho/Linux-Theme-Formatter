@@ -6,7 +6,8 @@ function Navbar() {
   const styles = {
     header: {
       display: 'flex',
-      justifyContent: 'center'
+      justifyContent: 'space-between',
+      margin: '0 40px 20px 40px'
     },
     titleSection: {
       display: 'flex',
@@ -14,7 +15,8 @@ function Navbar() {
     },
     navigationSection: {
       display: 'flex',
-      alignItems: 'center'
+      alignItems: 'center',
+      gap: '20px'
     },
     shareBtn: {
       backgroundColor: Theme.shareBtnBgColor,
@@ -35,7 +37,7 @@ function Navbar() {
     <header style={styles.header}>
       <div className="title-section" style={styles.titleSection}>
           <Logo/>
-        <div className="title">Linux Theme Formatter</div>
+        <pre className="title">  Linux Theme Formatter</pre>
       </div>
       <nav style={styles.navigationSection}>
         <button style={{...styles.shareBtn, ...styles.btn}}>Share</button>
