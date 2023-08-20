@@ -8,11 +8,7 @@ export const Theme = {
   donateBtnColor: '#F5F5F5',
 
   inputEditorBgColor: '#E5F1FB',
-  outputEditorBgColor: '#EEEEEC',
-
   inputEditorToolbarColor: '#65AAE6',
-  outputEditorToolbarColor: '#E8E89F',
-
   inputEditorTaskbarColor: '#D9E6F0',
-  outputEditorTaskbarColor: '#E8E8D1'
+  inputEditorBorderColor: '#8A939A',
 }
