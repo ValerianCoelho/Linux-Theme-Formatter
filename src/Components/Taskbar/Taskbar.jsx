@@ -4,9 +4,9 @@ import { Discord, Github, LinkedIn } from "./Svg/Svg";
 function Taskbar() {
   return (
     <>
-      <a className="linked-in"><LinkedIn/></a>
-      <a className="github"><Github/></a>
-      <a className="discord"><Discord/></a>
+      <button className="linked-in"><LinkedIn/></button>
+      <button className="github"><Github/></button>
+      <button className="discord"><Discord/></button>
     </>
   )
 }
