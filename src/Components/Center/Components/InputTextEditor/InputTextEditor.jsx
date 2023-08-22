@@ -1,6 +1,7 @@
 import React from "react";
 import { Theme } from "../../../../Themes/Webpage/Theme";
 import { InputEditorIcon, CopyBtn, DeleteBtn, ExpandBtn } from "./Svg/Svg";
+import TextEditor from "./TextEditor/TextEditor";
 
 function InputTextEditor() {
   const styles = {
@@ -8,8 +9,8 @@ function InputTextEditor() {
       width: '500px',
       height: '400px',
       display: 'grid',
-      gridTemplateColumns: '5% auto',
-      gridTemplateRows: '10% auto 10%',
+      gridTemplateColumns: '1fr',
+      gridTemplateRows: '10% auto',
       border: `1px solid ${Theme.inputEditorBorderColor}`
     },
     toolBar: {
@@ -21,19 +22,10 @@ function InputTextEditor() {
       gap: '10px',
       padding: '0 10px 0 5px'
     },
-    lineCountBar: {
-      backgroundColor: Theme.inputEditorTaskbarColor,
-      borderRight: `1px solid ${Theme.inputEditorBorderColor}`
-    },
     editor: {
-      backgroundColor: Theme.inputEditorBgColor,
+      backgroundColor: 'red',
       overflow: 'auto',
       outline: 'none'
-    },
-    taskbar: {
-      backgroundColor: Theme.inputEditorTaskbarColor,
-      gridColumn: '1 / span 2',
-      borderTop: `1px solid ${Theme.inputEditorBorderColor}`
     }
   }
   return (
@@ -45,9 +37,7 @@ function InputTextEditor() {
         <CopyBtn/>
         <ExpandBtn/>
       </div>
-      <div className="line-count-bar" style={styles.lineCountBar}></div>
-      <div className="editor" style={styles.editor} contenteditable="true"></div>
-      <div className="taskbar" style={styles.taskbar}></div>
+      <div className="editor" style={styles.editor}><TextEditor/></div>
     </div>
   )
 }
