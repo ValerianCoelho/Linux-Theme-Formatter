@@ -1,5 +1,5 @@
 import React from "react";
-import { Theme } from "../../Themes/Webpage/Theme";
+import { Theme } from "../../Themes/Theme";
 import { Discord, Github, LinkedIn, ChangeThemeBtn } from "./Svg/Svg";
 
 function Taskbar() {

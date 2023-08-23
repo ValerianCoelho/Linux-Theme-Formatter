@@ -1,7 +1,5 @@
 import React from "react";
-import InputTextEditor from './Components/InputTextEditor/InputTextEditor'
-import OutputTextEditor from './Components/OutputTextEditor/OutputTextEditor'
-import { Theme } from "../../Themes/Webpage/Theme";
+import TextEditor from './Components/TextEditor'
 
 function Center() {
   const styles = {
@@ -12,8 +10,7 @@ function Center() {
   }
   return (
     <div style={styles.center}>
-      <InputTextEditor/>
-      <OutputTextEditor/>
+      <TextEditor/>
     </div>
   )
 }

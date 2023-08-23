@@ -1,5 +1,5 @@
 import React from "react";
-import { Theme } from "../../Themes/Webpage/Theme";
+import { Theme } from "../../Themes/Theme";
 import { Logo, About } from "./Svg/Svg";
  
 function Navbar() {
