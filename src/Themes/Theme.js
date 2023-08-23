@@ -12,7 +12,7 @@ export const Theme = {
   TextEditorTaskbarColor: '#D9E6F0',
   TextEditorBorderColor: '#8A939A',
 
-  kernelColor: '#66A116,',
+  kernelColor: '#66A116',
   folderColor: '#4869B0',
   accentColor: '#CD0A13',
   textColor: '#000000'

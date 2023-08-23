@@ -5,6 +5,11 @@ import { Theme } from "../../../Themes/Theme";
 import { useRef } from "react";
 
 function TextEditor() {
+  const editorStyles = `
+    .editor > div {
+      font-family: 'Ubuntu Mono', monospace;
+    }
+  `
   const Editor = useRef(null);
   const styles = {
     editorContainer: {
@@ -61,48 +66,28 @@ function TextEditor() {
       backgroundColor: Theme.textColor
     },
   }
-  const toKernelColor = (e)=> {
-    // Editor.current.innerHTML = `<span style="color: pink"><div >00000</div><div style="color: red; font-family: 'Ubuntu Mono', 'monospace'">ksdnkfn</div></span>`
-    const selection = window.getSelection();
-    // console.log(selection.getRangeAt(0).startContainer)
-    // console.log(selection.getRangeAt(0).startOffset)
-    // console.log(selection.getRangeAt(0).endContainer)
-    // console.log(selection.getRangeAt(0).endOffset)
-    
-
-    // console.log(selection.toString())
+  const colorText = (color)=> {
     console.log(Editor.current.innerHTML)
-    const extract = selection.getRangeAt(0).extractContents();
+    const selection = window.getSelection();
+    const selectedText = selection.toString();
+    const range = selection.getRangeAt(0);
 
-    const tempContainer = document.createElement('div');
-    tempContainer.appendChild(extract);
-    const Hello = tempContainer.innerHTML;
+    const coloredText = `<span style="color: ${color}; font-family: 'Ubuntu Mono', monospace;">${selectedText}</span>`;
+    const span = document.createElement("span");
+    span.innerHTML = coloredText;
 
-    console.log(Hello.toString().replace(/div/g, 'span'))
-    // selection.getRangeAt(0).insertNode(Hello)    
-    // selection.getRangeAt(0).deleteContents()
-    // const selectedRange = selection.getRangeAt(0);
-    // const containerNode = document.getElementById('editor');
-
-    // if (selectedRange.startContainer === containerNode) {
-    //     // Selection starts at the beginning of the container
-    //     const startOffset = selectedRange.startOffset;
-    //     console.log('Selection starts at index:', startOffset);
-    // } else {
-    //     // Selection starts within a child node
-    //     const textBeforeSelection = selectedRange.startContainer.textContent.substring(0, selectedRange.startOffset);
-    //     const startOffset = textBeforeSelection.length;
-    //     console.log('Selection starts at index:', startOffset);
-    // }
+    range.deleteContents();
+    range.insertNode(span);
   }
   return (
     <div style={styles.editorContainer}>
       <div className="toolbar" style={styles.toolBar}>
+        <style>{ editorStyles }</style>
         <TextEditorIcon/>
-        <button className="color-palette" onClick={toKernelColor} style={{...styles.colorPalette, ...styles.kernelColor}}></button>
-        <button className="color-palette" style={{...styles.colorPalette, ...styles.folderColor}}></button>
-        <button className="color-palette" style={{...styles.colorPalette, ...styles.accentColor}}></button>
-        <button className="color-palette" style={{...styles.colorPalette, ...styles.textColor}}></button>
+        <button className="color-palette" onClick={()=>{colorText(Theme.kernelColor)}} style={{...styles.colorPalette, ...styles.kernelColor}}></button>
+        <button className="color-palette" onClick={()=>{colorText(Theme.folderColor)}} style={{...styles.colorPalette, ...styles.folderColor}}></button>
+        <button className="color-palette" onClick={()=>{colorText(Theme.accentColor)}} style={{...styles.colorPalette, ...styles.accentColor}}></button>
+        <button className="color-palette" onClick={()=>{colorText(Theme.textColor)}} style={{...styles.colorPalette, ...styles.textColor}}></button>
         <HighlightBtn/>
         <div></div>
         <ChangeThemeBtn/>
@@ -111,7 +96,10 @@ function TextEditor() {
         <ExpandBtn/>
       </div>
       <div className="line-count-bar" style={styles.lineCountBar}></div>
-      <div className="editor" ref={Editor} style={styles.editor} contentEditable='true'>dfd</div>
+      <div className="editor" ref={Editor} style={styles.editor} contentEditable='true' spellCheck={false}>
+        <div>cnc7@cnc7-Optiplex-3020:~$ ls *.txt</div>
+        <div>employee.txt output.txt test.txt</div>
+      </div>
       <div className="taskbar" style={styles.taskbar}></div>
     </div>
   )
