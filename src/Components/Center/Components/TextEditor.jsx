@@ -2,9 +2,10 @@ import React from "react";
 // import Theme from '../../../Themes/Editor/Theme'
 import { TextEditorIcon, HighlightBtn, ChangeThemeBtn, ExpandBtn, DeleteBtn, CopyBtn } from './Svg/Svg'
 import { Theme } from "../../../Themes/Theme";
-import { useRef } from "react";
+import { useState, useRef } from "react";
 
 function TextEditor() {
+  const [isExpanded, setIsExpanded] = useState(0)
   const editorStyles = `
     .editor > div {
       font-family: 'Ubuntu Mono', monospace;
@@ -51,7 +52,7 @@ function TextEditor() {
       width: '50px',
       height: '60%',
       borderRadius: '7px',
-      border: `1px solid ${Theme.TextEditorBorderColor}`
+      border: `1px solid ${Theme.TextEditorBorderColor}`,
     },
     kernelColor: {
       backgroundColor: Theme.kernelColor
@@ -65,6 +66,16 @@ function TextEditor() {
     textColor: {
       backgroundColor: Theme.textColor
     },
+    expanded: {
+      position: 'absolute',
+      top: '0',
+      left: '0',
+      height: '99.6vh',
+      width: '99.85vw'
+    },
+    button: {
+      backgroundColor: Theme.TextEditorToolbarColor
+    }
   }
   const colorText = (color)=> {
     console.log(Editor.current.innerHTML)
@@ -80,7 +91,7 @@ function TextEditor() {
     range.insertNode(span);
   }
   return (
-    <div style={styles.editorContainer}>
+    <div style={{...styles.editorContainer,  ...(isExpanded && styles.expanded)}}>
       <div className="toolbar" style={styles.toolBar}>
         <style>{ editorStyles }</style>
         <TextEditorIcon/>
@@ -91,17 +102,15 @@ function TextEditor() {
         <HighlightBtn/>
         <div></div>
         <ChangeThemeBtn/>
-        <button onClick={()=>{Editor.current.innerHTML = ''}}><DeleteBtn/></button>
-        <button onClick={()=>{
-          Editor.current.select()
-          Editor.current.setSelectionRange(0, 99999)
-          navigator.clipboard.writeText(Editor.current.value);
-        }}><CopyBtn/></button>
-        <ExpandBtn/>
+        <button style={styles.button} onClick={()=>{Editor.current.innerHTML = ''}}><DeleteBtn/></button>
+        <button style={styles.button} onClick={()=>{navigator.clipboard.writeText(Editor.current.textContent)}}><CopyBtn/></button>
+        <button style={styles.button} onClick={()=>{setIsExpanded(isExpanded === 0 ? 1 : 0)}}><ExpandBtn/></button>
       </div>
       <div className="line-count-bar" style={styles.lineCountBar}></div>
-      <textarea className="editor" ref={Editor} style={styles.editor} spellCheck={false}>
-      </textarea>
+      <div className="editor" ref={Editor} style={styles.editor} contentEditable='true' spellCheck={false}>
+        <div>cnc7@cnc7-Optiplex-3020:~$ ls *.txt</div>
+        <div>employee.txt output.txt test.txt</div>
+      </div>
       <div className="taskbar" style={styles.taskbar}></div>
     </div>
   )
