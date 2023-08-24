@@ -91,7 +91,7 @@ function TextEditor() {
         <HighlightBtn/>
         <div></div>
         <ChangeThemeBtn/>
-        <DeleteBtn/>
+        <button onClick={()=>{Editor.current.innerHTML = ''}}><DeleteBtn/></button>
         <CopyBtn/>
         <ExpandBtn/>
       </div>
