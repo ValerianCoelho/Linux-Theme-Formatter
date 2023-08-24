@@ -92,14 +92,16 @@ function TextEditor() {
         <div></div>
         <ChangeThemeBtn/>
         <button onClick={()=>{Editor.current.innerHTML = ''}}><DeleteBtn/></button>
-        <CopyBtn/>
+        <button onClick={()=>{
+          Editor.current.select()
+          Editor.current.setSelectionRange(0, 99999)
+          navigator.clipboard.writeText(Editor.current.value);
+        }}><CopyBtn/></button>
         <ExpandBtn/>
       </div>
       <div className="line-count-bar" style={styles.lineCountBar}></div>
-      <div className="editor" ref={Editor} style={styles.editor} contentEditable='true' spellCheck={false}>
-        <div>cnc7@cnc7-Optiplex-3020:~$ ls *.txt</div>
-        <div>employee.txt output.txt test.txt</div>
-      </div>
+      <textarea className="editor" ref={Editor} style={styles.editor} spellCheck={false}>
+      </textarea>
       <div className="taskbar" style={styles.taskbar}></div>
     </div>
   )
