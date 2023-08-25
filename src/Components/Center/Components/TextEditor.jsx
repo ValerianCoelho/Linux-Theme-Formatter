@@ -14,8 +14,9 @@ function TextEditor() {
   const Editor = useRef(null);
   const styles = {
     editorContainer: {
-      width: '500px',
-      height: '400px',
+      width: '90%',
+      maxWidth: '1000px',
+      height: '450px',
       display: 'grid',
       gridTemplateColumns: '5% auto',
       gridTemplateRows: '10% auto 10%',
@@ -25,7 +26,7 @@ function TextEditor() {
       backgroundColor: Theme.TextEditorToolbarColor,
       gridColumn: '1 / span 2',
       display: 'grid',
-      gridTemplateColumns: 'auto auto auto auto auto 1fr auto auto auto auto auto',
+      gridTemplateColumns: 'auto auto auto auto auto 1fr auto auto auto auto',
       alignItems: 'center',
       gap: '10px',
       padding: '0 10px 0 5px'
@@ -91,7 +92,7 @@ function TextEditor() {
     range.insertNode(span);
   }
   return (
-    <div style={{...styles.editorContainer,  ...(isExpanded && styles.expanded)}}>
+    <div className="editor-wrapper" style={{...styles.editorContainer,  ...(isExpanded && styles.expanded)}}>
       <div className="toolbar" style={styles.toolBar}>
         <style>{ editorStyles }</style>
         <TextEditorIcon/>
@@ -101,10 +102,9 @@ function TextEditor() {
         <button className="color-palette" onClick={()=>{colorText(Theme.textColor)}} style={{...styles.colorPalette, ...styles.textColor}}></button>
         <HighlightBtn/>
         <div></div>
-        <ChangeThemeBtn/>
-        <button style={styles.button} onClick={()=>{Editor.current.innerHTML = ''}}><DeleteBtn/></button>
-        <button style={styles.button} onClick={()=>{navigator.clipboard.writeText(Editor.current.textContent)}}><CopyBtn/></button>
-        <button style={styles.button} onClick={()=>{setIsExpanded(isExpanded === 0 ? 1 : 0)}}><ExpandBtn/></button>
+        <button className="delete-btn" style={styles.button} onClick={()=>{Editor.current.innerHTML = ''}}><DeleteBtn/></button>
+        <button className="copy-btn" style={styles.button} onClick={()=>{navigator.clipboard.writeText(Editor.current.textContent)}}><CopyBtn/></button>
+        <button className="expand-btn" style={styles.button} onClick={()=>{setIsExpanded(isExpanded === 0 ? 1 : 0)}}><ExpandBtn/></button>
       </div>
       <div className="line-count-bar" style={styles.lineCountBar}></div>
       <div className="editor" ref={Editor} style={styles.editor} contentEditable='true' spellCheck={false}>
