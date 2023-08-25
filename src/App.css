@@ -1,0 +1,8 @@
+.body {
+    height: 100vh;
+    display: grid;
+}
+
+.body > * {
+    margin: 0 auto;
+}

@@ -1,7 +1,7 @@
 import React from "react";
 // import Theme from '../../../Themes/Editor/Theme'
 import { TextEditorIcon, HighlightBtn, ChangeThemeBtn, ExpandBtn, DeleteBtn, CopyBtn } from './Svg/Svg'
-import { Theme } from "../../../Themes/Theme";
+import { Theme } from "../../Themes/Theme";
 import { useState, useRef } from "react";
 
 function TextEditor() {

@@ -1,21 +1,15 @@
 import React from "react";
 import Navbar from "./Components/Navbar/Navbar";
-import Center from "./Components/Center/Center";
+import TextEditor from "./Components/TextEditor/TextEditor";
 import Taskbar from "./Components/Taskbar/Taskbar";
 import './mediaQuery.css'
+import './App.css'
 
 function App() {
-  const styles = {
-    body: {
-      height: '100vh',
-      display: 'grid'
-    }
-  }
-
   return (
-    <div style={styles.body}>
+    <div className="body">
       <Navbar/>
-      <Center/>
+      <TextEditor/>
       <Taskbar/>
     </div>
   );
