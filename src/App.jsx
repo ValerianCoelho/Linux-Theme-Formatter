@@ -1,22 +1,46 @@
 import React from "react";
+import { connect } from "react-redux";
+
+import './App.css'
+import './mediaQuery.css'
+
 import Navbar from "./Components/Navbar/Navbar";
 import TextEditor from "./Components/TextEditor/TextEditor";
 import Taskbar from "./Components/Taskbar/Taskbar";
-import './mediaQuery.css'
-import './App.css'
-import { Provider } from "react-redux";
-import store from "./Redux/store";
 
-function App() {
+function App(props) {
+  const styles = `
+  @import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap');
+  * {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+  }
+  html {
+    background-color: ${props.Theme.pageBgColor};
+  }
+  button {
+    border: none;
+  }
+  `
   return (
-    <Provider store={store}>
+    <>
+      <style> {styles} </style>
       <div className="body">
         <Navbar/>
         <TextEditor/>
         <Taskbar/>
       </div>
-    </Provider>
+    </>
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    Theme: state.Theme
+  }
+}
+
+export default connect(
+  mapStateToProps
+)(App);
