@@ -1,7 +1,6 @@
 import React from "react";
-import { changeTheme } from "../../Redux/index";
 import { connect } from "react-redux";
-import { Theme } from "../../Themes/Theme";
+import { changeTheme } from "../../Redux/index";
 import { Discord, Github, LinkedIn, ChangeThemeBtn } from "./Svg/Svg";
 
 const Taskbar = (props)=> {
