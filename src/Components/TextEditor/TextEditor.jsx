@@ -1,85 +1,80 @@
 import React from "react";
-// import Theme from '../../../Themes/Editor/Theme'
-import { TextEditorIcon, HighlightBtn, ChangeThemeBtn, ExpandBtn, DeleteBtn, CopyBtn } from './Svg/Svg'
-import { Theme } from "../../Themes/Theme";
+import { connect } from "react-redux";
 import { useState, useRef } from "react";
+import { TextEditorIcon, HighlightBtn, ExpandBtn, DeleteBtn, CopyBtn } from './Svg/Svg'
 
-function TextEditor() {
-  const [isExpanded, setIsExpanded] = useState(0)
-  const editorStyles = `
-    .editor > div {
-      font-family: 'Ubuntu Mono', monospace;
-    }
-  `
+const TextEditor = (props)=> {
+  const [isExpanded, setIsExpanded] = useState(0);
   const Editor = useRef(null);
-  const styles = {
-    editorContainer: {
-      width: '90%',
-      maxWidth: '1000px',
-      height: '450px',
-      display: 'grid',
-      gridTemplateColumns: '5% auto',
-      gridTemplateRows: '10% auto 10%',
-      border: `1px solid ${Theme.TextEditorBorderColor}`
-    },
-    toolBar: {
-      backgroundColor: Theme.TextEditorToolbarColor,
-      gridColumn: '1 / span 2',
-      display: 'grid',
-      gridTemplateColumns: 'auto auto auto auto auto 1fr auto auto auto auto',
-      alignItems: 'center',
-      gap: '10px',
-      padding: '0 10px 0 5px'
 
-    },
-    lineCountBar: {
-      backgroundColor: Theme.TextEditorTaskbarColor,
-      borderRight: `1px solid ${Theme.TextEditorBorderColor}`
-    },
-    editor: {
-      backgroundColor: Theme.TextEditorBgColor,
-      fontFamily: `'Ubuntu Mono', 'monospace'`,
-      outline: 'none',
-      padding: '5px',
-      overflow: 'auto',
-      whiteSpace: 'nowrap' 
-    },
-    taskbar: {
-      backgroundColor: Theme.TextEditorTaskbarColor,
-      gridColumn: '1 / span 2',
-      borderTop: `1px solid ${Theme.TextEditorBorderColor}`
-    },
-    colorPalette: {
-      width: '50px',
-      height: '60%',
-      borderRadius: '7px',
-      border: `1px solid ${Theme.TextEditorBorderColor}`,
-    },
-    kernelColor: {
-      backgroundColor: Theme.kernelColor
-    },
-    folderColor: {
-      backgroundColor: Theme.folderColor
-    },
-    accentColor: {
-      backgroundColor: Theme.accentColor
-    },
-    textColor: {
-      backgroundColor: Theme.textColor
-    },
-    expanded: {
-      position: 'absolute',
-      top: '0',
-      left: '0',
-      height: '99.6vh',
-      width: '99.85vw'
-    },
-    button: {
-      backgroundColor: Theme.TextEditorToolbarColor
+  const styles = `
+    .editor-container {
+      width: 90%;
+      max-width: 1000px;
+      height: 450px;
+      display: grid;
+      grid-template-columns: 5% auto;
+      grid-template-rows: 10% auto 10%;
+      border: 1px solid ${props.Theme.textEditorBorderColor}
     }
+    .toolbar {
+      background-color: ${props.Theme.textEditorToolbarBgColor};
+      grid-column: 1 / span 2;
+      display: grid;
+      grid-template-columns: auto auto auto auto 1fr auto auto auto auto;
+      align-items: center;
+      gap: 10px;
+      padding: 0 10px 0 5px;
+      border-bottom: 1px solid ${props.Theme.textEditorBorderColor};
+    }
+    .line-count-bar {
+      background-color: ${props.Theme.textEditorTaskbarBgColor};
+      border-right: 1px solid ${props.Theme.textEditorBorderColor};
+    }
+    .editor {
+      background-color: ${props.Theme.kernelColor};
+      font-family: 'Ubuntu Mono', monospace;
+      outline: none;
+      padding: 5px;
+      overflow: auto;
+      white-space: nowrap;
+    }
+    .taskbar {
+      background-color: ${props.Theme.textEditorTaskbarBgColor};
+      grid-column: 1 / span 2;
+      border-top: 1px solid ${props.Theme.textEditorBorderColor};
+    }
+    .color-palette {
+      width: 50px;
+      height: 60%;
+      border-radius: 7px;
+      border: 1px solid #353535;
+    }
+    .path-color {
+      background-color: ${props.Theme.pathColor};
+    }
+    .folder-color {
+      background-color: ${props.Theme.folderColor};
+    }
+    .text-color {
+      background-color: ${props.Theme.textColor};
+    }
+    .expanded {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 99.6vh;
+      width: 99.85vw;
+    }
+    .button {
+      background-color: ${props.Theme.textEditorToolbarBgColor};
+    }
+    .editor > * {
+      font-family: 'Ubuntu Mono', monospace;
+      color: ${props.Theme.textColor};
   }
+  `
   const colorText = (color)=> {
-    console.log(Editor.current.innerHTML)
     const selection = window.getSelection();
     const selectedText = selection.toString();
     const range = selection.getRangeAt(0);
@@ -90,30 +85,53 @@ function TextEditor() {
 
     range.deleteContents();
     range.insertNode(span);
-  }
-  return (
-    <div className="editor-wrapper" style={{...styles.editorContainer,  ...(isExpanded && styles.expanded)}}>
-      <div className="toolbar" style={styles.toolBar}>
-        <style>{ editorStyles }</style>
-        <TextEditorIcon/>
-        <button className="color-palette" onClick={()=>{colorText(Theme.kernelColor)}} style={{...styles.colorPalette, ...styles.kernelColor}}></button>
-        <button className="color-palette" onClick={()=>{colorText(Theme.folderColor)}} style={{...styles.colorPalette, ...styles.folderColor}}></button>
-        <button className="color-palette" onClick={()=>{colorText(Theme.accentColor)}} style={{...styles.colorPalette, ...styles.accentColor}}></button>
-        <button className="color-palette" onClick={()=>{colorText(Theme.textColor)}} style={{...styles.colorPalette, ...styles.textColor}}></button>
-        <HighlightBtn/>
-        <div></div>
-        <button className="delete-btn" style={styles.button} onClick={()=>{Editor.current.innerHTML = ''}}><DeleteBtn/></button>
-        <button className="copy-btn" style={styles.button} onClick={()=>{navigator.clipboard.writeText(Editor.current.textContent)}}><CopyBtn/></button>
-        <button className="expand-btn" style={styles.button} onClick={()=>{setIsExpanded(isExpanded === 0 ? 1 : 0)}}><ExpandBtn/></button>
-      </div>
-      <div className="line-count-bar" style={styles.lineCountBar}></div>
-      <div className="editor" ref={Editor} style={styles.editor} contentEditable='true' spellCheck={false}>
-        <div>cnc7@cnc7-Optiplex-3020:~$ ls *.txt</div>
-        <div>employee.txt output.txt test.txt</div>
-      </div>
-      <div className="taskbar" style={styles.taskbar}></div>
-    </div>
-  )
-}
+  };
 
-export default TextEditor;
+  return (
+    <>
+      <style> {styles} </style>
+      <div className={`editor-container ${isExpanded ? 'expanded': ''}`}>
+        <div className="toolbar">
+          <TextEditorIcon color={props.Theme.textEditorToolbarFgColor}/>
+
+          <button className="color-palette path-color"   onClick={()=>{colorText(props.Theme.pathColor)}}></button>
+          <button className="color-palette folder-color" onClick={()=>{colorText(props.Theme.folderColor)}}></button>
+          <button className="color-palette text-color"   onClick={()=>{colorText(props.Theme.textColor)}}></button>
+
+          <HighlightBtn color={props.Theme.textEditorToolbarFgColor}/>
+
+          <div></div>
+
+          <button className="button" onClick={()=>{Editor.current.innerHTML = ''}}>
+            <DeleteBtn color={props.Theme.textEditorToolbarFgColor}/>
+          </button>
+          <button className="button" onClick={()=>{navigator.clipboard.writeText(Editor.current.textContent)}}>
+            <CopyBtn color={props.Theme.textEditorToolbarFgColor}/>
+          </button>
+          <button className="button" onClick={()=>{setIsExpanded(isExpanded === 0 ? 1 : 0)}}>
+            <ExpandBtn color={props.Theme.textEditorToolbarFgColor}/>
+          </button>
+        </div>
+
+        <div className="line-count-bar"></div>
+
+        <div className="editor" ref={Editor} contentEditable spellCheck="false">
+          <div>cnc7@cnc7-Optiplex-3020:~$ ls *.txt</div>
+          <div>employee.txt output.txt test.txt</div>
+        </div>
+
+        <div className="taskbar"></div>
+      </div>
+    </>
+  );
+};
+
+const mapStateToProps = state => {
+  return {
+    Theme: state.Theme
+  };
+};
+
+export default connect(
+  mapStateToProps
+)(TextEditor);
