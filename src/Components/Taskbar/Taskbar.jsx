@@ -1,38 +1,60 @@
 import React from "react";
+import { changeTheme } from "../../Redux/index";
+import { connect } from "react-redux";
 import { Theme } from "../../Themes/Theme";
 import { Discord, Github, LinkedIn, ChangeThemeBtn } from "./Svg/Svg";
 
-function Taskbar() {
-  const styles = {
-    footer: {
-      display: 'grid',
-      gridTemplateColumns: '1fr 1fr 1fr',
-      placeItems: 'center',
-      margin: '0 40px'
-    },
-    svgBtn: {
-      backgroundColor: Theme.primaryColor
-    },
-    socialLinks: {
-      width: '200px',
-      display: 'flex',
-      justifyContent: 'space-evenly'
-    },
-    changeTheme: {
-      justifySelf: 'flex-end'
+const Taskbar = (props)=> {
+  const styles = `
+    .footer {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      place-items: center;
+      margin: 0 40px;
     }
-  }
+    .svg-btn {
+      background-color: ${props.Theme.pageBgColor};
+    }
+    .social-links {
+      width: 200px;
+      display: flex;
+      justify-content: space-evenly;
+    }
+    .change-theme {
+      justify-self: flex-end;
+    }
+  `
   return (
-    <footer style={styles.footer}>
-      <div></div>
-      <div className="social-links" style={styles.socialLinks}>
-        <button className="linked-in" style={styles.svgBtn}><LinkedIn/></button>
-        <button className="github" style={styles.svgBtn}><Github/></button>
-        <button className="discord" style={styles.svgBtn}><Discord/></button>
-      </div>
-      <button style={{...styles.svgBtn, ...styles.changeTheme}}><ChangeThemeBtn/></button>
-    </footer>
+    <>
+      <style> {styles} </style>
+      <footer className="footer">
+        <div></div>
+        <div className="social-links">
+          <button className="svg-btn"><LinkedIn color={props.Theme.pageFgColor}/></button>
+          <button className="svg-btn"><Github color={props.Theme.pageFgColor}/></button>
+          <button className="svg-btn"><Discord color={props.Theme.pageFgColor}/></button>
+        </div>
+        <button className="svg-btn change-theme" onClick={props.changeTheme}>
+          <ChangeThemeBtn color={props.Theme.pageFgColor}/>
+        </button>
+      </footer>
+    </>
   )
 }
 
-export default Taskbar;
+const mapStateToProps = state => {
+  return {
+    Theme: state.Theme
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    changeTheme: ()=> dispatch(changeTheme())
+  }
+}
+
+export default connect(
+  mapStateToProps, 
+  mapDispatchToProps
+)(Taskbar);
