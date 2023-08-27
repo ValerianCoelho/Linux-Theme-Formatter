@@ -26,7 +26,7 @@ const Themes = {
   },
   '2': {
     pageFgColor: '#ECECEC',
-    pageBgColor: '#3A4141',
+    pageBgColor: '#93A0A0',
 
     shareBtnFgColor: '#FFFFFF',
     shareBtnBgColor: '#66A116',
@@ -40,7 +40,7 @@ const Themes = {
     textColor: '#FFFFFF',
 
     textEditorToolbarFgColor: '#D9D9D9',
-    textEditorToolbarBgColor: '#656D6D',
+    textEditorToolbarBgColor: '#24272D',
 
     textEditorTaskbarFgColor: '#FFFFFF',
     textEditorTaskbarBgColor: '#535A5A',
