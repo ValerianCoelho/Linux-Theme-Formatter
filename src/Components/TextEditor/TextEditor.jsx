@@ -13,9 +13,11 @@ const TextEditor = (props)=> {
       max-width: 1000px;
       height: 450px;
       display: grid;
-      grid-template-columns: 5% auto;
-      grid-template-rows: 10% auto 10%;
-      border: 1px solid ${props.Theme.textEditorBorderColor}
+      grid-template-columns: 30px auto;
+      grid-template-rows: 40px auto 35px;
+      border: 1px solid ${props.Theme.textEditorBorderColor};
+      border-radius: 15px;
+      overflow: hidden;
     }
     .toolbar {
       background-color: ${props.Theme.textEditorToolbarBgColor};
@@ -24,7 +26,7 @@ const TextEditor = (props)=> {
       grid-template-columns: auto auto auto auto 1fr auto auto auto auto;
       align-items: center;
       gap: 10px;
-      padding: 0 10px 0 5px;
+      padding: 0 15px 0 10px;
       border-bottom: 1px solid ${props.Theme.textEditorBorderColor};
     }
     .line-count-bar {
@@ -60,18 +62,25 @@ const TextEditor = (props)=> {
       background-color: ${props.Theme.textColor};
     }
     .expanded {
+      max-width: none;
       position: absolute;
       top: 0;
       left: 0;
-      height: 99.6vh;
+      height: 99.55vh;
       width: 99.85vw;
     }
-    .button {
+    .tool-btn {
       background-color: ${props.Theme.textEditorToolbarBgColor};
+      margin-right: 5px;
     }
     .editor > * {
       font-family: 'Ubuntu Mono', monospace;
       color: ${props.Theme.textColor};
+    }
+    @media(max-width: 400px) {
+      .delete-btn, .copy-btn {
+          display: none;
+      }
   }
   `
   const colorText = (color)=> {
@@ -102,13 +111,13 @@ const TextEditor = (props)=> {
 
           <div></div>
 
-          <button className="button" onClick={()=>{Editor.current.innerHTML = ''}}>
+          <button className="tool-btn delete-btn" onClick={()=>{Editor.current.innerHTML = ''}}>
             <DeleteBtn color={props.Theme.textEditorToolbarFgColor}/>
           </button>
-          <button className="button" onClick={()=>{navigator.clipboard.writeText(Editor.current.textContent)}}>
+          <button className="tool-btn copy-btn" onClick={()=>{navigator.clipboard.writeText(Editor.current.textContent)}}>
             <CopyBtn color={props.Theme.textEditorToolbarFgColor}/>
           </button>
-          <button className="button" onClick={()=>{setIsExpanded(isExpanded === 0 ? 1 : 0)}}>
+          <button className="tool-btn expand-btn" onClick={()=>{setIsExpanded(isExpanded === 0 ? 1 : 0)}}>
             <ExpandBtn color={props.Theme.textEditorToolbarFgColor}/>
           </button>
         </div>

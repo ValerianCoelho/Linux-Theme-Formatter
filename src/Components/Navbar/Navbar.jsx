@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Logo, About, Close } from "./Svg/Svg";
+import { Logo, About, Close, Share, Donate } from "./Svg/Svg";
  
 function Navbar(props) {
   const [isAboutActive, setIsAboutActive] = useState(false)
@@ -29,7 +29,7 @@ function Navbar(props) {
       background-color: ${props.Theme.donateBtnBgColor};
     }
     .btn {
-      width: 90px;
+      padding: 2px 20px;
       height: 40px;
       border-radius: 10px;
       display: flex;
@@ -63,6 +63,7 @@ function Navbar(props) {
       padding: 3rem;
       border-radius: 30px 20px;
       font-size: 18px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, .5);
     }
     .heading {
       display: flex;
@@ -75,6 +76,32 @@ function Navbar(props) {
     h2, h3, p {
       font-family: 'Ubuntu Mono', monospace;
     }
+    @media(max-width: 650px) {
+      .title{
+          display: none;
+      }
+      .about-window{
+        font-size: 15px;
+      }
+    }
+    .icon {
+      display: none;
+    }
+    @media(max-width: 400px) {
+      .icon {
+          display: inline;
+      }
+      .label {
+        display: none;
+      }
+      .btn {
+        background-color: ${props.Theme.pageBgColor};
+        padding: 0;
+      }
+      .about-window{
+        font-size: 13px;
+      }
+  }
   `
   return (
     <>
@@ -85,8 +112,14 @@ function Navbar(props) {
           <pre className="title">  Linux Theme Formatter</pre>
         </div>
         <nav className="navigation-section">
-          <a href={`https://api.whatsapp.com/send?text=' + ${encodeURIComponent(window.document.title + ' - ' + window.location.href)}`} target="_blank" className="btn share-btn">Share</a>
-          <a href="https://www.buymeacoffee.com/vc27" target="_blank" className="btn donate-btn">Donate</a>
+          <a href={`https://api.whatsapp.com/send?text=' + ${encodeURIComponent('Linux Theme Formatter' + ' - ' + window.location.href)}`} target="_blank" className="btn share-btn">
+            <div className="label">Share</div>
+            <div className="icon share-icon"><Share color={props.Theme.shareBtnBgColor}/></div>
+          </a>
+          <a href="https://www.buymeacoffee.com/vc27" target="_blank" className="btn donate-btn">
+            <div className="label">Donate</div>
+            <div className="icon donate-icon"><Donate color={props.Theme.donateBtnBgColor}/></div>
+          </a>
           <button className="about-btn" onClick={()=>{
             setIsAboutActive(true)
           }}><About color={props.Theme.pageFgColor}/></button>
