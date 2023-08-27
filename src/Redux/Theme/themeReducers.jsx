@@ -6,10 +6,10 @@ const Themes = {
     pageBgColor: '#EEEEEC',
 
     shareBtnFgColor: '#FFFFFF',
-    shareBtnBgColor: '#4869B0',
+    shareBtnBgColor: '#66A116',
     
     donateBtnFgColor: '#FFFFFF',
-    donateBtnBgColor: '#66A116',
+    donateBtnBgColor: '#4869B0',
 
     kernelColor: '#EEEEEC',
     folderColor: '#4869B0',
@@ -29,10 +29,10 @@ const Themes = {
     pageBgColor: '#3A4141',
 
     shareBtnFgColor: '#FFFFFF',
-    shareBtnBgColor: '#3667D0',
+    shareBtnBgColor: '#66A116',
     
     donateBtnFgColor: '#FFFFFF',
-    donateBtnBgColor: '#66A116',
+    donateBtnBgColor: '#3667D0',
 
     kernelColor: '#2C3435',
     folderColor: '#4869B0',
@@ -52,10 +52,10 @@ const Themes = {
     pageBgColor: '#BABABA',
 
     shareBtnFgColor: '#FFFFFF',
-    shareBtnBgColor: '#346CE6',
+    shareBtnBgColor: '#79C710',
     
     donateBtnFgColor: '#000000',
-    donateBtnBgColor: '#79C710',
+    donateBtnBgColor: '#346CE6',
 
     kernelColor: '#320A27',
     folderColor: '#4869B0',

@@ -29,9 +29,9 @@ const Taskbar = (props)=> {
       <footer className="footer">
         <div></div>
         <div className="social-links">
-          <button className="svg-btn"><LinkedIn color={props.Theme.pageFgColor}/></button>
-          <button className="svg-btn"><Github color={props.Theme.pageFgColor}/></button>
-          <button className="svg-btn"><Discord color={props.Theme.pageFgColor}/></button>
+          <a href="https://www.linkedin.com/in/valerian-coelho-835193258/" target="_blank" className="svg-btn"><LinkedIn color={props.Theme.pageFgColor}/></a>
+          <a href="https://github.com/ValerianCoelho" target="_blank" className="svg-btn"><Github color={props.Theme.pageFgColor}/></a>
+          <a href="https://discordapp.com/users/1037802358547161109" target="_blank" className="svg-btn"><Discord color={props.Theme.pageFgColor}/></a>
         </div>
         <button className="svg-btn change-theme" onClick={props.changeTheme}>
           <ChangeThemeBtn color={props.Theme.pageFgColor}/>

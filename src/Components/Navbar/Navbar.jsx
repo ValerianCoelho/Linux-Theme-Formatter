@@ -31,6 +31,10 @@ function Navbar(props) {
       width: 90px;
       height: 40px;
       border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
     }
     .about {
       background-color: ${props.Theme.pageBgColor}
@@ -45,9 +49,9 @@ function Navbar(props) {
           <pre className="title">  Linux Theme Formatter</pre>
         </div>
         <nav className="navigation-section">
-          <button className="btn share-btn">Share</button>
-          <button className="btn donate-btn">Donate</button>
-          <button className="about"><About color={props.Theme.pageFgColor}/></button>
+          <a href={`https://api.whatsapp.com/send?text=' + ${encodeURIComponent(window.document.title + ' - ' + window.location.href)}`} target="_blank" className="btn share-btn">Share</a>
+          <a href="https://www.buymeacoffee.com/vc27" target="_blank" className="btn donate-btn">Donate</a>
+          <button  className="about"><About color={props.Theme.pageFgColor}/></button>
         </nav>
       </header>
     </>
