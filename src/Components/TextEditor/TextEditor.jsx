@@ -72,7 +72,6 @@ const TextEditor = (props)=> {
     .editor > * {
       font-family: 'Ubuntu Mono', monospace;
       color: ${props.Theme.textColor};
-      font-weight: bold;
   }
   `
   const colorText = (color)=> {
