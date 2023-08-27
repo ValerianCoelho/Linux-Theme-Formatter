@@ -1,12 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import './App.css'
-import './mediaQuery.css'
-
 import Navbar from "./Components/Navbar/Navbar";
 import TextEditor from "./Components/TextEditor/TextEditor";
 import Taskbar from "./Components/Taskbar/Taskbar";
+
+import './App.css'
 
 function App(props) {
   const styles = `
