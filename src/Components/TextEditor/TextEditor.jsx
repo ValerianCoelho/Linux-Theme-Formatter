@@ -88,12 +88,14 @@ const TextEditor = (props)=> {
     const selectedText = selection.toString();
     const range = selection.getRangeAt(0);
 
-    const coloredText = `<span style="color: ${color}; font-family: 'Ubuntu Mono', monospace;">${selectedText}</span>`;
     const span = document.createElement("span");
-    span.innerHTML = coloredText;
+    span.style.color = color;  // Set the color property
+    span.style.fontFamily = "Ubuntu Mono, monospace";  // Set the font-family property
+    span.textContent = selectedText;  // Use textContent to set the text
 
     range.deleteContents();
     range.insertNode(span);
+
   };
 
   return (
