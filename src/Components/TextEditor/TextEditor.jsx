@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { useState, useRef } from "react";
-import { TextEditorIcon, HighlightBtn, ExpandBtn, DeleteBtn, CopyBtn } from './Svg/Svg'
+import { TextEditorIcon, BoldBtn, HighlightBtn, ExpandBtn, DeleteBtn, CopyBtn } from './Svg/Svg'
 
 const TextEditor = (props)=> {
   const [isExpanded, setIsExpanded] = useState(0);
@@ -23,7 +23,7 @@ const TextEditor = (props)=> {
       background-color: ${props.Theme.textEditorToolbarBgColor};
       grid-column: 1 / span 2;
       display: grid;
-      grid-template-columns: auto auto auto auto 1fr auto auto auto auto;
+      grid-template-columns: auto auto auto auto auto auto 1fr auto auto auto auto;
       align-items: center;
       gap: 10px;
       padding: 0 15px 0 10px;
@@ -77,26 +77,41 @@ const TextEditor = (props)=> {
       font-family: 'Ubuntu Mono', monospace;
       color: ${props.Theme.textColor};
     }
+    .bold-text {
+      font-weight: bold;
+    }
+    .highlight-text {
+      color: ${props.Theme.kernelColor};
+      background-color: ${props.Theme.textColor};
+    }
     @media(max-width: 400px) {
       .delete-btn, .copy-btn {
           display: none;
       }
   }
   `
-  const colorText = (color)=> {
+  const styleText = (styleType, styleValue) => {
     const selection = window.getSelection();
     const selectedText = selection.toString();
     const range = selection.getRangeAt(0);
-
+  
     const span = document.createElement("span");
-    span.style.color = color;  // Set the color property
-    span.style.fontFamily = "Ubuntu Mono, monospace";  // Set the font-family property
-    span.textContent = selectedText;  // Use textContent to set the text
-
+    span.style.fontFamily = "Ubuntu Mono, monospace";
+  
+    if (styleType === "color") {
+      span.style.color = styleValue;
+    } else if (styleType === "bold") {
+      span.classList.add("bold-text");
+    } else if (styleType === "highlight") {
+      span.classList.add("highlight-text");
+    }
+  
+    span.textContent = selectedText;
+  
     range.deleteContents();
     range.insertNode(span);
-
   };
+  
 
   return (
     <>
@@ -105,20 +120,28 @@ const TextEditor = (props)=> {
         <div className="toolbar">
           <TextEditorIcon color={props.Theme.textEditorToolbarFgColor}/>
 
-          <button className="color-palette path-color"   onClick={()=>{colorText(props.Theme.pathColor)}}></button>
-          <button className="color-palette folder-color" onClick={()=>{colorText(props.Theme.folderColor)}}></button>
-          <button className="color-palette text-color"   onClick={()=>{colorText(props.Theme.textColor)}}></button>
+          <button className="color-palette path-color"   onClick={()=>{styleText('color', props.Theme.pathColor)}}></button>
+          <button className="color-palette folder-color" onClick={()=>{styleText('color', props.Theme.folderColor)}}></button>
+          <button className="color-palette text-color"   onClick={()=>{styleText('color', props.Theme.textColor)}}></button>
 
-          <HighlightBtn color={props.Theme.textEditorToolbarFgColor}/>
+          <button className="tool-btn bold-btn" onClick={()=>{ styleText("bold"); }}>
+            <BoldBtn color={props.Theme.textEditorToolbarFgColor}/>
+          </button>
+
+          <button className="tool-btn highlight-btn" onClick={()=>{ styleText("highlight", [props.Theme.textColor, props.Theme.kernelColor]); }}>
+            <HighlightBtn color={props.Theme.textEditorToolbarFgColor}/>
+          </button>
 
           <div></div>
 
           <button className="tool-btn delete-btn" onClick={()=>{Editor.current.innerHTML = ''}}>
             <DeleteBtn color={props.Theme.textEditorToolbarFgColor}/>
           </button>
+
           <button className="tool-btn copy-btn" onClick={()=>{navigator.clipboard.writeText(Editor.current.textContent)}}>
             <CopyBtn color={props.Theme.textEditorToolbarFgColor}/>
           </button>
+
           <button className="tool-btn expand-btn" onClick={()=>{setIsExpanded(isExpanded === 0 ? 1 : 0)}}>
             <ExpandBtn color={props.Theme.textEditorToolbarFgColor}/>
           </button>
